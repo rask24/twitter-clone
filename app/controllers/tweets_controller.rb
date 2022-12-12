@@ -1,20 +1,29 @@
 class TweetsController < ApplicationController
+  before_action :to_home, except: [:home, :create, :destroy]
+  before_action :require_login, only: [:home]
+
   def index
     @tweets = Tweet.all
+  end
+
+  def home
+    @tweets = Tweet.all
     @tweet = Tweet.new
+    @user = current_user
   end
 
   def create
-    @tweet = Tweet.new(tweet_params)
-    if @tweet.save
-      redirect_to root_path
+    tweet = Tweet.new(tweet_params)
+    tweet.user_id = session[:user_id]
+    if tweet.save
+      redirect_to home_path
     end
   end
 
   def destroy
     @tweet = Tweet.find(params[:id])
     @tweet.destroy
-    redirect_to root_path, status: :see_other
+    redirect_to home_path, status: :see_other
   end
 
   private
