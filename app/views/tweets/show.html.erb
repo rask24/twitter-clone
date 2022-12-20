@@ -1,0 +1,66 @@
+<div class="flex">
+  <%= render partial: 'templates/header' %>
+  <main class="basis-9/12">
+    <div class="flex flex-col border border-gray-200">
+      <h2 class="text-2xl my-2 px-6 font-bold">ホーム</h2>
+      <div class="px-6">
+        <%= form_with model: @tweet, url: home_path do |form| %>
+          <div class="flex">
+            <div class="w-12">
+              <%= image_tag 'default_user.png' %>
+            </div>
+            <div class="border-b border-gray-200 w-full">
+              <%= form.text_area :text, :class=>"my-2 text-xl block border-transparent focus:border-transparent focus:ring-0 resize-none w-full", :placeholder=>"いまどうしてる？" %>
+            </div>
+          </div>
+          <div class="flex justify-end mt-4">
+            <div class="w-32 bg-twitter hover:bg-twitter-hover active:bg-twitter-active transition  hover:duration-150 text-white rounded-full text-center">
+              <%= form.submit 'ツイートする', :class=>"px-4 py-2 font-bold"%>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="my-4">
+        <ul>
+          <% @tweets.each do |tweet| %>
+            <li class="list-none">
+              <div class="flex px-6 border border-gray-200 py-4">
+                <div class="flex mr-2">
+                  <div class="w-12">
+                    <%= image_tag 'default_user.png' %>
+                  </div>
+                </div>
+
+                <div class="w-full">
+                  <div class="flex justify-between flex-col">
+                    <div class="flex justify-between">
+                      <p class="font-bold text-lg">
+                        <%= link_to user_path(tweet.user_id) do %>
+                          <%= tweet.user.name %>
+                        <% end %>
+                      </p>
+                      <p>
+                        <% if tweet.user_id == @user.id %>
+                          <%= link_to '[delete]', tweets_path + "/#{tweet[:id]}",
+                          data: { turbo_method: :delete, turbo_confirm: 'Delete Tweet?'} %>
+                        <% end %>
+                      </p>
+                    </div>
+                    <p class="mt-2">
+                      <%= tweet.text %>
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+    <div>
+    </div>
+  </main>
+</div>

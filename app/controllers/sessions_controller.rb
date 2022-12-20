@@ -1,7 +1,7 @@
 class SessionsController < ApplicationController
   before_action :require_login, only: [:destroy]
 
-  def new
+  def index
   end
 
   def create
@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
       redirect_to root_path
     else
       flash.now[:danger] = 'パスワードかメールアドレスが間違ってます。'
-      render 'new'
+      render 'index'
     end
   end
 

@@ -9,6 +9,13 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        'twitter': {
+          DEFAULT: '#1da1f2',
+          hover: '#0d94e7',
+          active: '#0d8bd9'
+        },
+      },
     },
   },
   plugins: [
