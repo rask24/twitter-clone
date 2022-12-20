@@ -1,12 +1,12 @@
 class TweetsController < ApplicationController
-  before_action :to_home, except: [:home, :create, :destroy]
-  before_action :require_login, only: [:home]
+  before_action :to_home, except: [:show, :create, :destroy]
+  before_action :require_login, only: [:show]
 
   def index
     @tweets = Tweet.all
   end
 
-  def home
+  def show
     @tweets = Tweet.all
     @tweet = Tweet.new
     @user = current_user

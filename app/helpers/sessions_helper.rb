@@ -14,7 +14,7 @@ module SessionsHelper
   end
 
   def require_login
-    redirect_to login_path if !logged_in?
+    redirect_to tweets_path if !logged_in?
   end
 
   def to_home

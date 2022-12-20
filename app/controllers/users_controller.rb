@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  def new
+  def index
     @user = User.new
   end
 
@@ -9,12 +9,14 @@ class UsersController < ApplicationController
       login(user)
       redirect_to home_path
     else
-      render 'new'
+      render 'index'
     end
   end
 
   def show
-    @user = User.find(params[:user_id])
+    @user_tweets = Tweet.where(user_id: params[:id])
+    @profile_user = User.find(params[:id])
+    @user ||= User.find_by(id: session[:user_id])
   end
 
   def destroy
